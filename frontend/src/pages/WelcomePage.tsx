@@ -32,9 +32,9 @@ export const WelcomePage: React.FC = () => {
     <div className="max-w-4xl mx-auto px-4 py-12 flex-1 flex flex-col justify-center">
       {/* Hero section */}
       <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200 mb-4">
-          <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
-          Phase 2: Database Design &amp; Integration
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 mb-4">
+          <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+          Phase 2 Complete: Database Connected &amp; Migrated
         </div>
         <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
           Welcome to <span className="text-sky-600">RecallBox</span>
@@ -50,7 +50,7 @@ export const WelcomePage: React.FC = () => {
           <div>
             <h2 className="text-lg font-bold text-slate-900 m-0">Backend &amp; Database Status</h2>
             <p className="text-xs text-slate-500 mt-1 m-0">
-              Verifies communication between React frontend, FastAPI backend, and Supabase PostgreSQL.
+              Verifies live communication between React frontend, FastAPI backend, and Supabase PostgreSQL.
             </p>
           </div>
           <button
@@ -116,30 +116,30 @@ export const WelcomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* Database Schema Summary */}
+      {/* Database Schema & Next Phase Summary */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-white p-5 rounded-xl border border-slate-200">
           <h3 className="text-sm font-bold text-slate-900 mb-2 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-sky-500"></span>
-            Database Models (Phase 2)
+            <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
+            Database Schema (Live on Supabase)
           </h3>
           <ul className="text-xs text-slate-600 space-y-1.5 pl-4 list-disc m-0">
-            <li><strong>Workspaces:</strong> ID (UUID), Name, Hashed Access Key</li>
-            <li><strong>Categories:</strong> Workspace-isolated topics</li>
-            <li><strong>Notes:</strong> Title, Content, Workspace FK, Category FK</li>
-            <li><strong>Tags &amp; Note_Tags:</strong> Many-to-many tag associations</li>
+            <li><strong>Workspaces:</strong> Root entity with hashed access keys</li>
+            <li><strong>Categories:</strong> Workspace-scoped topic classification</li>
+            <li><strong>Notes:</strong> Title, content, timestamps, cascade deletion</li>
+            <li><strong>Tags &amp; Note_Tags:</strong> Many-to-many relationship</li>
           </ul>
         </div>
         <div className="bg-white p-5 rounded-xl border border-slate-200">
           <h3 className="text-sm font-bold text-slate-900 mb-2 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
-            Data Isolation &amp; Integrity
+            <span className="w-3 h-3 rounded-full bg-sky-500"></span>
+            Next: Phase 3 (Backend Foundation)
           </h3>
           <ul className="text-xs text-slate-600 space-y-1.5 pl-4 list-disc m-0">
-            <li>Strict Foreign Keys with <code>ON DELETE CASCADE</code></li>
-            <li>Composite uniqueness on (workspace_id, name)</li>
-            <li>SQLAlchemy 2.0 ORM with connection pooling</li>
-            <li>Alembic migrations for tracked schema evolution</li>
+            <li>Centralized API exception handling &amp; status codes</li>
+            <li>Request/response validation with Pydantic v2 schemas</li>
+            <li>Service &amp; Repository 3-tier business architecture</li>
+            <li>Structured logging and test configuration</li>
           </ul>
         </div>
       </div>
