@@ -1,12 +1,21 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import RequestValidationError
 from sqlalchemy import text
+
 from app.core.config import settings
+from app.core.exceptions import (
+    AppException,
+    app_exception_handler,
+    validation_exception_handler,
+    global_exception_handler,
+)
+from app.core.logging import RequestLoggingMiddleware
 from app.api.v1.router import api_router
 from app.schemas.health import HealthResponse
 from app.db.session import SessionLocal
 
-# Initialize FastAPI application
+# Initialize FastAPI application with OpenAPI metadata
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
@@ -15,6 +24,9 @@ app = FastAPI(
     redoc_url="/redoc",
     openapi_url="/openapi.json",
 )
+
+# Register Request Logging Middleware (logs method, path, status, and latency)
+app.add_middleware(RequestLoggingMiddleware)
 
 # Configure Cross-Origin Resource Sharing (CORS)
 app.add_middleware(
@@ -25,6 +37,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Register Centralized Exception Handlers
+app.add_exception_handler(AppException, app_exception_handler)
+app.add_exception_handler(RequestValidationError, validation_exception_handler)
+app.add_exception_handler(Exception, global_exception_handler)
+
 # Include API v1 routes
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
@@ -32,7 +49,8 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 @app.get(
     "/",
     summary="API Root",
-    description="Welcome endpoint providing API status and documentation links."
+    description="Welcome endpoint providing API status and documentation links.",
+    tags=["Root"],
 )
 async def root():
     return {
@@ -49,7 +67,7 @@ async def root():
     response_model=HealthResponse,
     tags=["Health"],
     summary="Convenience Health Check",
-    description="Top-level health check endpoint mirroring the health status."
+    description="Top-level health check endpoint mirroring the health status.",
 )
 async def root_health():
     db_status = "not_configured"

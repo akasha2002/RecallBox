@@ -1,1 +1,3 @@
-"""Service layer business logic (To be implemented in Phase 3/4)"""
+from app.services.base import BaseService
+
+__all__ = ["BaseService"]
