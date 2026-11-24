@@ -1,1 +1,4 @@
-"""Database connections and session management (To be implemented in Phase 2)"""
+from app.db.base import Base
+from app.db.session import engine, SessionLocal, get_db
+
+__all__ = ["Base", "engine", "SessionLocal", "get_db"]

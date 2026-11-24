@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import text
 from app.core.config import settings
 from app.api.v1.router import api_router
 from app.schemas.health import HealthResponse
+from app.db.session import SessionLocal
 
 # Initialize FastAPI application
 app = FastAPI(
@@ -47,12 +49,22 @@ async def root():
     response_model=HealthResponse,
     tags=["Health"],
     summary="Convenience Health Check",
-    description="Top-level health check endpoint redirecting/mirroring the health status."
+    description="Top-level health check endpoint mirroring the health status."
 )
 async def root_health():
+    db_status = "not_configured"
+    if settings.DATABASE_URL and SessionLocal is not None:
+        try:
+            with SessionLocal() as session:
+                session.execute(text("SELECT 1"))
+            db_status = "connected"
+        except Exception as e:
+            db_status = f"error: {type(e).__name__}"
+
     return HealthResponse(
         status="ok",
         app=settings.PROJECT_NAME,
         version=settings.VERSION,
         environment=settings.ENVIRONMENT,
+        database=db_status,
     )

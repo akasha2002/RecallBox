@@ -5,6 +5,7 @@ export interface HealthStatus {
   app: string;
   version: string;
   environment: string;
+  database?: string;
   timestamp?: string;
 }
 

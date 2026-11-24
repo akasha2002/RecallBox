@@ -21,8 +21,8 @@ export const Header: React.FC = () => {
         </Link>
 
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200">
-            Phase 1: Setup
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+            Phase 2: Database Connected
           </span>
           <a
             href="http://localhost:8000/docs"

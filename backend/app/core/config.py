@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Union, Optional
 import json
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import field_validator
@@ -10,6 +10,9 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
+    
+    # Database Configuration (Supabase PostgreSQL)
+    DATABASE_URL: Optional[str] = None
     
     # CORS Configuration - accepts either JSON array or comma-separated list
     CORS_ORIGINS: Union[List[str], str] = [
